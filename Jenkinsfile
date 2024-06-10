@@ -2,6 +2,9 @@ pipeline {
     agent {
         label "jenkins-agent"
     }
+    triggers {
+        githubPush()
+    }
     tools {
         jdk 'java17'
         maven 'Maven3'

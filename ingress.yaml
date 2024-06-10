@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: daoducan-io-vn-website-ingress
+  namespace: spring
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - "daoducan.io.vn"
+    secretName: daoducan-io-vn-website-tls
+  rules:
+  - host: "daoducan.io.vn"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: daoducan-io-vn-website-service
+            port:
+              number: 80
